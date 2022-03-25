@@ -53,7 +53,7 @@ public class DomandaResource {
     @Operation(summary = "Recupera tutte le Domande che soddisfano gli id inseriti",
             description = "La ricerca richiede obbligatoriamente una lista di id", tags = { "Domanda Resource" } )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Anno trovato", content = {
+            @ApiResponse(responseCode = "200", description = "Domanda trovata", content = {
                     @Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "204", description = "Nessun Anno trovato", content = {
                     @Content(mediaType = "application/json", schema = @Schema())}),
@@ -65,6 +65,22 @@ public class DomandaResource {
     @GetMapping(params = {"ids"})
     public String findDomandaByIds(@NotNull @RequestParam(value = "ids") List<UUID> ids) {
         log.debug("REST request to find any Domanda {}", ids);
+        return "Domande trovate";
+    }
+
+    @Operation(summary = "Recupera tutte le Domanda che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Domande Resource" } )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Domanda trovata"),
+            @ApiResponse(responseCode = "204", description = "Nessuna Domanda trovata", content = {
+                    @Content(mediaType = "application/json", schema = @Schema())}),
+            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+    })
+    @GetMapping("/ricerca")
+    public String searchDomanda(Pageable pageRequest) {
+        log.debug("REST request to search Domanda: {}", pageRequest);
         return "Domande trovate";
     }
 
