@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories("it.iccs.simeal.sdi.tabelle.adapter.outbound.persistence.repository")
+@EnableJpaRepositories("it.iccs.simeal.sdi.domande.adapter.outbound.persistence.repository")
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
