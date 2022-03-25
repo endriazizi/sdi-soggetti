@@ -23,9 +23,9 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sdi_domande
-    username: postgres
-    password: iccsmarco
+    url: jdbc:postgresql://ec2-54-160-109-68.compute-1.amazonaws.com:5432/d27duci8b6046r
+    username: udhbitlsigjyaw
+    password: c5e0a4cfbb1337e20bb5cc2379cdc6e2a0a0be0e10aeb720e77f7db966d2dcdb
   # JPA properties
   jpa:
     hibernate:
