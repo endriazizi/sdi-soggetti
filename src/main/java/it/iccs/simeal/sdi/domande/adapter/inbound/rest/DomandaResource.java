@@ -82,7 +82,7 @@ public class DomandaResource {
         }
     }
 
-    @Operation(summary = "Recupera tutte le Domanda che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Domande Resource" } )
+    @Operation(summary = "Recupera tutte le Domanda che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Domanda Resource" } )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Domanda trovata"),
             @ApiResponse(responseCode = "204", description = "Nessuna Domanda trovata", content = {
@@ -134,7 +134,7 @@ public class DomandaResource {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDomanda(@PathVariable("id") UUID id) {
-        log.debug("REST request to delete Anno: {}", id);
+        log.debug("REST request to delete Domanda: {}", id);
         domandaService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

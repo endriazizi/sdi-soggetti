@@ -14,8 +14,14 @@ public class DomandaSpecification extends AbstractSpecification<DomandaEntity> {
 
 		Specification<DomandaEntity> specification =
 				super.flagSpecification(flagName, flagValue)
-				.and(super.applyInUUIDFilter(criteria.getId(), "id"));
-        return specification;
+				.and(super.applyInUUIDFilter(criteria.getId(), "id"))
+				.and(super.applyIntegerFilter(criteria.getAnno(), "anno"))
+				.and(super.applyInUUIDFilter(criteria.getIdRichiedente1(), "id_richiedente1"))
+				.and(super.applyInUUIDFilter(criteria.getIdBeneficiario(), "id_beneficiario"))
+				.and(super.applyInUUIDFilter(criteria.getIdIstituto(), "id_istituto"))
+		     	.and(super.applyInUUIDFilter(criteria.getIdClasse(), "id_classe"))
+				.and(super.applyInUUIDFilter(criteria.getIdSezione(), "id_sezione"));
+		return specification;
 	}
 
 }

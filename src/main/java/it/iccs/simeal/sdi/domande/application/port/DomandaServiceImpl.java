@@ -34,9 +34,16 @@ public class DomandaServiceImpl implements DomandaService {
 	
 	@Override
 	public DomandaDTO create(DomandaCreateDTO dto) {
-		DomandaDTO annoDTO = domandaModelMapper.fromCreateDto(dto);
-        DomandaModel annoModel = domandaModelMapper.toModel(annoDTO);
-        DomandaModel model = domandaPersistence.save(annoModel);
+
+		System.out.println(dto);
+
+		DomandaDTO domandaDTO = domandaModelMapper.fromCreateDto(dto);
+
+		this.checkValidate(domandaDTO);
+
+		DomandaModel domandaModel = domandaModelMapper.toModel(domandaDTO);
+        DomandaModel model = domandaPersistence.save(domandaModel);
+
         return domandaModelMapper.toDto(model);
 	}
 
@@ -55,6 +62,7 @@ public class DomandaServiceImpl implements DomandaService {
 	@Override
 	public DomandaDTO update(DomandaUpdateDTO dto) {
 		DomandaDTO domandaDTO = domandaModelMapper.fromUpdateDto(dto);
+		this.checkValidate(domandaDTO);
 		this.checkDomandaExists(domandaDTO.getId());
         DomandaModel annoModel = domandaModelMapper.toModel(domandaDTO);
         domandaPersistence.save(annoModel);
@@ -83,5 +91,65 @@ public class DomandaServiceImpl implements DomandaService {
 			log.warn("Domanda {} not found", id);
 			throw new NotFoundException(String.format("Domanda %s non trovato", id));
 		}
+	}
+
+	private void checkValidate(DomandaDTO domandaDTO) {
+
+		Boolean error=false;
+		String error_validate="";
+
+		System.out.println(domandaDTO);
+
+		if((domandaDTO.getAnno()==null || domandaDTO.getAnno()==0))
+		{
+			if(error_validate!="")
+				error_validate+=", ";
+
+			error_validate+="Anno non rilevato";
+			error=true;
+		}
+
+		if(domandaDTO.getIdTipologiaDomanda()==null)
+		{
+			if(error_validate!="")
+				error_validate+=", ";
+
+			error_validate+="TipologiaDomanda non rilevata";
+			error=true;
+		}
+
+		if(domandaDTO.getIdRichiedente1()==null)
+		{
+			if(error_validate!="")
+				error_validate+=", ";
+
+			error_validate+="IdRichiedente1 non rilevato";
+			error=true;
+		}
+
+		if(domandaDTO.getIdBeneficiario()==null)
+		{
+			if(error_validate!="")
+				error_validate+=", ";
+
+			error_validate+="IdBeneficiario non rilevato";
+			error=true;
+		}
+
+		if(domandaDTO.getIdStatoDomanda()==null)
+		{
+			if(error_validate!="")
+				error_validate+=", ";
+
+			error_validate+="StatoDomanda non rilevato";
+			error=true;
+		}
+
+		if(error)
+		{
+			log.warn("Domanda error: {}", error_validate);
+			throw new BadRequestException(String.format("Errore creazione Domanda error: %s", error_validate));
+		}
+
 	}
 }

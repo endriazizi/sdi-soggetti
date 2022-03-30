@@ -16,5 +16,10 @@ import java.util.UUID;
 public class DomandaCriteria {
 	
 	List<UUID> id = new ArrayList<>();
-
+	List<IntegerFilter> anno = new ArrayList<>();
+	List<UUID> idRichiedente1 = new ArrayList<>();
+	List<UUID> idBeneficiario = new ArrayList<>();
+	List<UUID> idIstituto = new ArrayList<>();
+	List<UUID> idClasse = new ArrayList<>();
+	List<UUID> idSezione = new ArrayList<>();
 }
