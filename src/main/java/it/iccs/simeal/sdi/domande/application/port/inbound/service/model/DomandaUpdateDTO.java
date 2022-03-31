@@ -58,7 +58,7 @@ public class DomandaUpdateDTO implements Serializable {
 	private LocalDate dataInvio;
 
 	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime OraInvio;
+	private LocalTime oraInvio;
 
 	private Short idTipologiaInvio;
 
