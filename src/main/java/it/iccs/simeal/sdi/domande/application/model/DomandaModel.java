@@ -47,7 +47,7 @@ public class DomandaModel implements Serializable {
 
 	private LocalDate dataInvio;
 
-	private LocalTime OraInvio;
+	private LocalTime oraInvio;
 
 	private Short idTipologiaInvio;
 

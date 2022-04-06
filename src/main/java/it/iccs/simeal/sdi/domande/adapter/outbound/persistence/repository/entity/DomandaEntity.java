@@ -76,7 +76,7 @@ public class DomandaEntity implements Serializable {
 
     @Column(name = "ora_invio")
     @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime OraInvio;
+    private LocalTime oraInvio;
 
     @NotNull
     @Column(name = "id_tipologia_invio")
