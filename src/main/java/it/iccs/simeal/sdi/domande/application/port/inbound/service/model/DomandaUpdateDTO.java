@@ -48,7 +48,7 @@ public class DomandaUpdateDTO implements Serializable {
 
 	private UUID idSezione;
 
-	private Short idStatoDomanda;
+	private UUID idStatoDomanda;
 
 	private LocalDate dataCreazione;
 

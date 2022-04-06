@@ -31,7 +31,7 @@ public class DomandaPersistenceImpl extends DomandaSpecification implements Doma
 	
 	@Autowired
 	private DomandaEntityMapper entityMapper;
-	
+
 	@Override
 	public DomandaModel save(DomandaModel domandaModel) {
 		log.debug("Request to save Domanda: {}", domandaModel);

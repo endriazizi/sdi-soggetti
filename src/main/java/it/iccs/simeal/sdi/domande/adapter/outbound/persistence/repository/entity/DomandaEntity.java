@@ -62,7 +62,7 @@ public class DomandaEntity implements Serializable {
     private UUID idSezione;
 
     @Column(name = "id_stato_domanda", nullable = false)
-    private Short idStatoDomanda;
+    private UUID idStatoDomanda;
 
     @Column(name = "data_creazione")
     private LocalDate dataCreazione;

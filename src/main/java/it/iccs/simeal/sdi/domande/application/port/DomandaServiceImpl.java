@@ -1,6 +1,5 @@
 package it.iccs.simeal.sdi.domande.application.port;
 
-import io.github.jhipster.service.filter.IntegerFilter;
 import it.iccs.simeal.sdi.domande.application.mapper.DomandaModelMapper;
 import it.iccs.simeal.sdi.domande.application.model.DomandaModel;
 import it.iccs.simeal.sdi.domande.application.port.inbound.service.DomandaService;
@@ -8,9 +7,9 @@ import it.iccs.simeal.sdi.domande.application.port.inbound.service.model.Domanda
 import it.iccs.simeal.sdi.domande.application.port.inbound.service.model.DomandaUpdateDTO;
 import it.iccs.simeal.sdi.domande.application.port.inbound.service.model.DomandaCriteria;
 import it.iccs.simeal.sdi.domande.application.port.inbound.service.model.DomandaDTO;
+import it.iccs.simeal.sdi.domande.application.port.outbound.client.TabelleClient;
 import it.iccs.simeal.sdi.domande.application.port.outbound.persistence.DomandaPersistence;
 import it.iccs.simeal.sdi.domande.web.rest.errors.BadRequestException;
-import it.iccs.simeal.sdi.domande.web.rest.errors.ConstraintsViolateException;
 import it.iccs.simeal.sdi.domande.web.rest.errors.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,10 @@ public class DomandaServiceImpl implements DomandaService {
 	
 	@Autowired
 	private DomandaPersistence domandaPersistence;
-	
+
+	@Autowired
+	private TabelleClient tabelleClient;
+
 	@Override
 	public DomandaDTO create(DomandaCreateDTO dto) {
 
@@ -143,6 +145,62 @@ public class DomandaServiceImpl implements DomandaService {
 
 			error_validate+="StatoDomanda non rilevato";
 			error=true;
+		}
+
+		if(domandaDTO.getIdStatoDomanda()!=null)
+		{
+			Boolean stato_domanda_exists=tabelleClient.checkStatoDomandaExists(domandaDTO.getIdStatoDomanda());
+			System.out.println("StatoDomandaExists: "+stato_domanda_exists);
+			if(!stato_domanda_exists)
+			{
+				if(error_validate!="")
+					error_validate+=", ";
+
+				error_validate+="StatoDomandaExists non valido";
+				error=true;
+			}
+		}
+
+		if(domandaDTO.getIdIstituto()!=null)
+		{
+			Boolean istituto_exists=tabelleClient.checkIstitutoExists(domandaDTO.getIdIstituto());
+			System.out.println("IstitutoExists: "+istituto_exists);
+			if(!istituto_exists)
+			{
+				if(error_validate!="")
+					error_validate+=", ";
+
+				error_validate+="Istituto non valido";
+				error=true;
+			}
+		}
+
+		if(domandaDTO.getIdClasse()!=null)
+		{
+			Boolean classe_exists=tabelleClient.checkClasseExists(domandaDTO.getIdClasse());
+			System.out.println("ClasseExists: "+classe_exists);
+			if(!classe_exists)
+			{
+				if(error_validate!="")
+					error_validate+=", ";
+
+				error_validate+="Classe non valida";
+				error=true;
+			}
+		}
+
+		if(domandaDTO.getIdSezione()!=null)
+		{
+			Boolean sezione_exists=tabelleClient.checkSezioneExists(domandaDTO.getIdSezione());
+			System.out.println("SezioneExists: "+sezione_exists);
+			if(!sezione_exists)
+			{
+				if(error_validate!="")
+					error_validate+=", ";
+
+				error_validate+="Sezione non valida";
+				error=true;
+			}
 		}
 
 		if(error)

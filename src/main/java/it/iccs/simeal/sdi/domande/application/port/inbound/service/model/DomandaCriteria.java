@@ -19,6 +19,7 @@ public class DomandaCriteria {
 	List<IntegerFilter> anno = new ArrayList<>();
 	List<UUID> idRichiedente1 = new ArrayList<>();
 	List<UUID> idBeneficiario = new ArrayList<>();
+	List<UUID> idStatoDomanda = new ArrayList<>();
 	List<UUID> idIstituto = new ArrayList<>();
 	List<UUID> idClasse = new ArrayList<>();
 	List<UUID> idSezione = new ArrayList<>();

@@ -18,6 +18,7 @@ public class DomandaSpecification extends AbstractSpecification<DomandaEntity> {
 				.and(super.applyIntegerFilter(criteria.getAnno(), "anno"))
 				.and(super.applyInUUIDFilter(criteria.getIdRichiedente1(), "id_richiedente1"))
 				.and(super.applyInUUIDFilter(criteria.getIdBeneficiario(), "id_beneficiario"))
+				.and(super.applyInUUIDFilter(criteria.getIdStatoDomanda(), "id_stato_domanda"))
 				.and(super.applyInUUIDFilter(criteria.getIdIstituto(), "id_istituto"))
 		     	.and(super.applyInUUIDFilter(criteria.getIdClasse(), "id_classe"))
 				.and(super.applyInUUIDFilter(criteria.getIdSezione(), "id_sezione"));
