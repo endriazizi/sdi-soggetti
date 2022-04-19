@@ -2,9 +2,9 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sdi_domande
-    username: postgres
-    password: iccsmarco
+    url: jdbc:postgresql://localhost:5432/soggetti
+    username: palermo
+    password: palermo
 
   jpa:
     hibernate:

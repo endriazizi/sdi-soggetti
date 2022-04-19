@@ -8,11 +8,11 @@
 		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>it.iccs.simeal.sdi.domande</groupId>
-	<artifactId>sdi-domande-service</artifactId>
+	<groupId>it.iccs.simeal.sdi.soggetti</groupId>
+	<artifactId>sdi-soggetti-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sdi-domande-service</name>
-	<description>Microservizio di Domande per Simeal</description>
+	<name>sdi-soggetti-service</name>
+	<description>Microservizio di Soggetti per Simeal</description>
 	<properties>
 		<!--		<java.version>17</java.version>-->
 		<java.version>11</java.version>
