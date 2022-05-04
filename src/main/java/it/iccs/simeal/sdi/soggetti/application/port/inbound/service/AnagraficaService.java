@@ -10,13 +10,13 @@ import java.util.UUID;
 public interface AnagraficaService {
 	
 	AnagraficaDTO create(AnagraficaCreateDTO dto);
-//
-//	List<AnagraficaDTO> findByIds(List<UUID> ids);
-//
-//	Page<AnagraficaDTO> search(AnagraficaCriteria criteria, Pageable pageRequest);
-//
-//	AnagraficaDTO update(AnagraficaUpdateDTO dto);
-//
-//	void delete(UUID id);
+
+	List<AnagraficaDTO> findByIds(List<UUID> ids);
+
+	Page<AnagraficaDTO> search(AnagraficaCriteria criteria, Pageable pageRequest);
+
+	AnagraficaDTO update(AnagraficaUpdateDTO dto);
+
+	void delete(UUID id);
 	
 }

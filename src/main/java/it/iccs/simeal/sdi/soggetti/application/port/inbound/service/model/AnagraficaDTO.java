@@ -1,6 +1,7 @@
 package it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.enumeration.TipologiaSoggetto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,7 +20,7 @@ public class AnagraficaDTO implements Serializable {
 
 	private UUID id;
 
-	private String tipologiaSoggetto;
+	private TipologiaSoggetto tipologiaSoggetto;
 
 	private String denominazione;
 
@@ -38,4 +39,6 @@ public class AnagraficaDTO implements Serializable {
 	private String sesso;
 
 	private String note;
+
+	private Short flagElimina;
 }

@@ -1,6 +1,7 @@
 package it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.enumeration.TipologiaSoggetto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,53 +21,26 @@ public class AnagraficaUpdateDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
 	private UUID id;
 
-	@NotNull
-	private Short idTipologiaDomanda;
+	private TipologiaSoggetto tipologiaSoggetto;
 
-	@NotNull
-	private UUID idRichiedente1;
+	private String denominazione;
 
-	private UUID idRichiedente2;
+	private String cognome;
 
-	@NotNull
-	private UUID idBeneficiario;
+	private String nome;
 
-	private UUID idAvviso;
+	private LocalDate dataNascita;
 
-	@NotNull
-	private Integer anno;
+	private String localitaNascita;
 
-	private UUID idIstituto;
+	private String provinciaNascita;
 
-	private UUID idClasse;
+	private String codiceFiscale;
 
-	private UUID idSezione;
-
-	private UUID idStatoDomanda;
-
-	private LocalDate dataCreazione;
-
-	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime oraCreazione;
-
-	private LocalDate dataInvio;
-
-	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime oraInvio;
-
-	private Short idTipologiaInvio;
-
-	private String numeroProtocollo;
-
-	private LocalDate dataProtocollo;
-
-	@JsonFormat(pattern = "HH:mm:ss")
-	private LocalTime oraProtocollo;
-
-	private String segnaturaProtocollo;
+	private String sesso;
 
 	private String note;
+
 }

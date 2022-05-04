@@ -30,28 +30,28 @@ public class DomandaPersistenceImpl extends DomandaSpecification implements Doma
 	private DomandaRepository domandaRepository;
 	
 	@Autowired
-	private DomandaEntityMapper entityMapper;
+	private DomandaEntityMapper domandaEntityMapper;
 
 	@Override
 	public DomandaModel save(DomandaModel domandaModel) {
 		log.debug("Request to save Domanda: {}", domandaModel);
-        DomandaEntity entityToSave = this.entityMapper.fromModelToEntity(domandaModel);
+        DomandaEntity entityToSave = this.domandaEntityMapper.fromModelToEntity(domandaModel);
 		DomandaEntity savedEntity = domandaRepository.save(entityToSave);
-        return this.entityMapper.fromEntityToModel(savedEntity);
+        return this.domandaEntityMapper.fromEntityToModel(savedEntity);
 	}
 
 	@Override
 	public List<DomandaModel> findByIds(List<UUID> ids) {
 		log.debug("Request to find any Domanda {}", ids);
         List<DomandaEntity> entities = domandaRepository.findAllById(ids);
-        return entityMapper.fromEntitiesToModels(entities);
+        return domandaEntityMapper.fromEntitiesToModels(entities);
 	}
 
 	@Override
 	public Page<DomandaModel> search(DomandaCriteria criteria, Pageable pageRequest) {
 		log.debug("Request to search Domanda: {}", criteria);
         Page<DomandaEntity> entities = domandaRepository.findAll(this.filter(criteria), pageRequest);
-        return entities.map(entity -> this.entityMapper.fromEntityToModel(entity));
+        return entities.map(entity -> this.domandaEntityMapper.fromEntityToModel(entity));
     }
 
 	@Override

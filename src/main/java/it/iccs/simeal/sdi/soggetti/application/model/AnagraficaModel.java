@@ -38,4 +38,6 @@ public class AnagraficaModel implements Serializable {
 
 	private String note;
 
+	private Short flagElimina;
+
 }

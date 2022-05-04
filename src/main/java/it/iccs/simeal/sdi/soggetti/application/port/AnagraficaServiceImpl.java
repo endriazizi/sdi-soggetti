@@ -26,79 +26,83 @@ import java.util.UUID;
 @Slf4j
 public class AnagraficaServiceImpl implements AnagraficaService {
 
-	@Autowired
-	private DomandaModelMapper domandaModelMapper;
+    @Autowired
+    private DomandaModelMapper domandaModelMapper;
 
-	@Autowired
-	private AnagraficaModelMapper anagraficaModelMapper;
-	
-	@Autowired
-	private DomandaPersistence domandaPersistence;
+    @Autowired
+    private AnagraficaModelMapper anagraficaModelMapper;
 
-	@Autowired
-	private AnagraficaPersistence anagraficaPersistence;
+    @Autowired
+    private DomandaPersistence domandaPersistence;
 
-	@Autowired
-	private TabelleClient tabelleClient;
+    @Autowired
+    private AnagraficaPersistence anagraficaPersistence;
 
-	@Override
-	public AnagraficaDTO create(AnagraficaCreateDTO dto) {
-		return null;
-	}
+    @Autowired
+    private TabelleClient tabelleClient;
+
+
+    @Override
+    public AnagraficaDTO create(AnagraficaCreateDTO dto) {
+
+        System.out.println(dto);
+
+        AnagraficaDTO anagraficaDTO = anagraficaModelMapper.fromCreateDto(dto);
+
+        this.checkValidate(anagraficaDTO);
+
+        AnagraficaModel anagraficaModel = anagraficaModelMapper.toModel(anagraficaDTO);
+        AnagraficaModel model = anagraficaPersistence.save(anagraficaModel);
+
+        return anagraficaModelMapper.toDto(model);
+    }
+
+    @Override
+    public List<AnagraficaDTO> findByIds(List<UUID> ids) {
+        List<AnagraficaModel> models = anagraficaPersistence.findByIds(ids);
+        return anagraficaModelMapper.toDto(models);
+    }
+
+    @Override
+    public Page<AnagraficaDTO> search(AnagraficaCriteria criteria, Pageable pageRequest) {
+        //criteria.setElimina((short)1);
+        Page<AnagraficaModel> models = anagraficaPersistence.search(criteria, pageRequest);
+        return models.map(model -> this.anagraficaModelMapper.toDto(model));
+    }
 
 //	@Override
-//	public AnagraficaDTO create(AnagraficaCreateDTO dto) {
-//
-//		System.out.println(dto);
-//
-//		AnagraficaDTO anagraficaDTO = anagraficaModelMapper.fromCreateDto(dto);
-//
-//		//this.checkValidate(anagraficaDTO);
-//
-//		AnagraficaModel anagraficaModel = anagraficaModelMapper.toModel(anagraficaDTO);
-//		AnagraficaModel model = anagraficaPersistence.save(anagraficaModel);
-//
-//        return anagraficaModelMapper.toDto(model);
+//	public Page<AnagraficaDTO> searchEliminati(AnagraficaCriteria criteria, Pageable pageRequest) {
+//		//criteria.setElimina((short)1);
+//		Page<AnagraficaModel> models = anagraficaPersistence.search(criteria, pageRequest);
+//		return models.map(model -> this.anagraficaModelMapper.toDto(model));
 //	}
 
-//	@Override
-//	public List<DomandaDTO> findByIds(List<UUID> ids) {
-//		List<DomandaModel> models = domandaPersistence.findByIds(ids);
-//		return domandaModelMapper.toDto(models);
-//	}
-//
-//	@Override
-//	public Page<DomandaDTO> search(DomandaCriteria criteria, Pageable pageRequest) {
-//		Page<DomandaModel> models = domandaPersistence.search(criteria, pageRequest);
-//		return models.map(model -> this.domandaModelMapper.toDto(model));
-//	}
-//
-//	@Override
-//	public DomandaDTO update(DomandaUpdateDTO dto) {
-//		DomandaDTO domandaDTO = domandaModelMapper.fromUpdateDto(dto);
-//		this.checkValidate(domandaDTO);
-//		this.checkDomandaExists(domandaDTO.getId());
-//        DomandaModel annoModel = domandaModelMapper.toModel(domandaDTO);
-//        domandaPersistence.save(annoModel);
-//        DomandaModel model = domandaPersistence.findByIds(Collections.singletonList(domandaDTO.getId()))
-//                .stream()
-//                .findAny()
-//                .orElse(null);
-//        return domandaModelMapper.toDto(model);
-//	}
-//
-//	@Override
-//	public void delete(UUID id) {
+    @Override
+    public AnagraficaDTO update(AnagraficaUpdateDTO dto) {
+        AnagraficaDTO anagraficaDTO = anagraficaModelMapper.fromUpdateDto(dto);
+//		this.checkValidate(anagraficaDTO);
+//		this.checkDomandaExists(anagraficaDTO.getId());
+        AnagraficaModel anagraficaModel = anagraficaModelMapper.toModel(anagraficaDTO);
+        anagraficaPersistence.save(anagraficaModel);
+        AnagraficaModel model = anagraficaPersistence.findByIds(Collections.singletonList(anagraficaDTO.getId()))
+                .stream()
+                .findAny()
+                .orElse(null);
+        return anagraficaModelMapper.toDto(model);
+    }
+
+    @Override
+    public void delete(UUID id) {
 //		this.checkDomandaExists(id);
-//		DomandaDTO domandaDTO = this.findByIds(Collections.singletonList(id))
-//				.stream()
-//				.findAny()
-//				.orElse(null);
-//		domandaDTO.setFlagElimina((short)1);
-//
-//		DomandaModel domandaModel = domandaModelMapper.toModel(domandaDTO);
-//		domandaPersistence.save(domandaModel);
-//	}
+        AnagraficaDTO anagraficaDTO = this.findByIds(Collections.singletonList(id))
+                .stream()
+                .findAny()
+                .orElse(null);
+        anagraficaDTO.setFlagElimina((short) 1);
+
+        AnagraficaModel anagraficaModel = anagraficaModelMapper.toModel(anagraficaDTO);
+        anagraficaPersistence.save(anagraficaModel);
+    }
 //
 //	private void checkDomandaExists(UUID id) {
 //		if (domandaPersistence.findByIds(Collections.singletonList(id)).isEmpty()) {
@@ -108,13 +112,31 @@ public class AnagraficaServiceImpl implements AnagraficaService {
 //	}
 //
 
-//	private void checkValidate(DomandaDTO domandaDTO) {
+    private void checkValidate(AnagraficaDTO anagraficaDTO) {
+
+        Boolean error = false;
+        String error_validate = "";
+
+        System.out.println(anagraficaDTO);
+
+        String value = anagraficaDTO.getTipologiaSoggetto().getValue();
+
+
+        if ((anagraficaDTO.getTipologiaSoggetto() == null || (anagraficaDTO.getTipologiaSoggetto().getValue().equals("Persona Fisica")))) {
+//            if (error_validate != "")
+//                error_validate += ", ";
 //
-//		Boolean error=false;
-//		String error_validate="";
-//
-//		System.out.println(domandaDTO);
-//
+//            error_validate += "Anno non rilevato";
+//            error = true;
+
+            if ((anagraficaDTO.getCognome() == null )) {
+                if (error_validate != "")
+                    error_validate += ", ";
+
+                error_validate += "Cognome non rilevato";
+                error = true;
+            }
+        }
 //		if((domandaDTO.getAnno()==null || domandaDTO.getAnno()==0))
 //		{
 //			if(error_validate!="")
@@ -123,7 +145,7 @@ public class AnagraficaServiceImpl implements AnagraficaService {
 //			error_validate+="Anno non rilevato";
 //			error=true;
 //		}
-//
+
 //		if(domandaDTO.getIdTipologiaDomanda()==null)
 //		{
 //			if(error_validate!="")
@@ -215,12 +237,11 @@ public class AnagraficaServiceImpl implements AnagraficaService {
 //				error=true;
 //			}
 //		}
-//
-//		if(error)
-//		{
-//			log.warn("Domanda error: {}", error_validate);
-//			throw new BadRequestException(String.format("Errore creazione Domanda error: %s", error_validate));
-//		}
-//
-//	}
+
+        if (error) {
+            log.warn("Domanda error: {}", error_validate);
+            throw new BadRequestException(String.format("Errore creazione Domanda error: %s", error_validate));
+        }
+
+    }
 }

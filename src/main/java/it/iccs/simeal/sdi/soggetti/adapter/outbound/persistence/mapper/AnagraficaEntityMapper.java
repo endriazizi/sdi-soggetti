@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface AnagraficaEntityMapper extends EntityMapper<AnagraficaEntity, AnagraficaModel> {
 
-	//@Mapping(target = "flagElimina", source="flagElimina", defaultValue = "0")
+	@Mapping(target = "flagElimina", source="flagElimina", defaultValue = "0")
 	AnagraficaEntity fromModelToEntity(AnagraficaModel model);
 
 }

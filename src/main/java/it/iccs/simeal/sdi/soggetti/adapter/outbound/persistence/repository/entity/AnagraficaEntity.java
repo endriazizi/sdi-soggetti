@@ -1,6 +1,7 @@
 package it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.enumeration.TipologiaSoggetto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Cache;
@@ -19,42 +20,50 @@ import java.util.UUID;
 @Table(name = "sdi_anagrafica")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Accessors(chain = true)
-public class AnagraficaEntity  extends AbstractAuditingEntity implements Serializable {
+public class AnagraficaEntity implements Serializable {
+    //public class AnagraficaEntity  extends AbstractAuditingEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id
+    @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(name = "tipologia_soggetto", nullable = false)
-    private String tipologiaSoggetto;
+//    @Column(name = "tipologia_soggetto", nullable = false)
+//    private String tipologiaSoggetto;
 
-    @Column(name = "denominazione", nullable = false)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipologia_soggetto", nullable = false)
+    private TipologiaSoggetto tipologiaSoggetto;
+
+    @Column(name = "denominazione" )
     private String denominazione;
 
-    @Column(name = "cognome", nullable = false)
+    @Column(name = "cognome")
     private String cognome;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name = "data_nascita", nullable = false)
+    @Column(name = "data_nascita")
     private LocalDate dataNascita;
 
-    @Column(name = "localita_nascita", nullable = false)
+    @Column(name = "localita_nascita")
     private String localitaNascita;
 
-    @Column(name = "provincia_nascita", nullable = false)
+    @Column(name = "provincia_nascita")
     private String provinciaNascita;
 
-    @Column(name = "codice_fiscale", nullable = false)
+    @Column(name = "codice_fiscale")
     private String codiceFiscale;
 
-    @Column(name = "sesso", nullable = false)
+    @Column(name = "sesso")
     private String sesso;
 
-    @Column(name = "note", nullable = false)
+    @Column(name = "note")
     private String note;
+
+    @Column(name = "flag_elimina")
+    private Short flagElimina;
 }
