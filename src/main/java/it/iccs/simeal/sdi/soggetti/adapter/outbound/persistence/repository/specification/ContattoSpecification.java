@@ -1,22 +1,20 @@
 package it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification;
 
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DocumentoEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DomicilioEntity;
+import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.ContattoEntity;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.ResidenzaEntity;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DocumentoCriteria;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioCriteria;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ContattoCriteria;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ResidenzaCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
-public class DomcicilioSpecification extends AbstractSpecification<DomicilioEntity> {
+public class ContattoSpecification extends AbstractSpecification<ContattoEntity> {
 	
-	public Specification<DomicilioEntity> filter(DomicilioCriteria criteria) {
+	public Specification<ContattoEntity> filter(ContattoCriteria criteria) {
 
 		// http://localhost:8092/api/anagrafica/ricerca?flagelimina=0
 		String flagName = "flagElimina";
 		Short flagValue = 0;
 
-		Specification<DomicilioEntity> specification =
+		Specification<ContattoEntity> specification =
 			super.flagSpecification(flagName, flagValue);
 //				.and(super.applyInUUIDFilter(criteria.getId(), "id"))
 //				.and(super.applyIntegerFilter(criteria.getAnno(), "anno"))

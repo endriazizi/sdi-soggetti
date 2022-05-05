@@ -2,21 +2,19 @@ package it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.spec
 
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DocumentoEntity;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DomicilioEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.ResidenzaEntity;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DocumentoCriteria;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioCriteria;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ResidenzaCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
-public class DomcicilioSpecification extends AbstractSpecification<DomicilioEntity> {
+public class DocumentoSpecification extends AbstractSpecification<DocumentoEntity> {
 	
-	public Specification<DomicilioEntity> filter(DomicilioCriteria criteria) {
+	public Specification<DocumentoEntity> filter(DocumentoCriteria criteria) {
 
 		// http://localhost:8092/api/anagrafica/ricerca?flagelimina=0
 		String flagName = "flagElimina";
 		Short flagValue = 0;
 
-		Specification<DomicilioEntity> specification =
+		Specification<DocumentoEntity> specification =
 			super.flagSpecification(flagName, flagValue);
 //				.and(super.applyInUUIDFilter(criteria.getId(), "id"))
 //				.and(super.applyIntegerFilter(criteria.getAnno(), "anno"))

@@ -1,10 +1,11 @@
 package it.iccs.simeal.sdi.soggetti.application.port;
 
-import it.iccs.simeal.sdi.soggetti.application.mapper.ResidenzaModelMapper;
-import it.iccs.simeal.sdi.soggetti.application.model.ResidenzaModel;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ResidenzaService;
+import it.iccs.simeal.sdi.soggetti.application.mapper.ContattoModelMapper;
+
+import it.iccs.simeal.sdi.soggetti.application.model.ContattoModel;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ContattoService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.*;
-import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.ResidenzaPersistence;
+import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.ContattoPersistence;
 import it.iccs.simeal.sdi.soggetti.web.rest.errors.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,41 +19,41 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class ResidenzaServiceImpl implements ResidenzaService {
+public class ContattoServiceImpl implements ContattoService {
 
     @Autowired
-    private ResidenzaModelMapper residenzaModelMapper;
+    private ContattoModelMapper contattoModelMapper;
 
     @Autowired
-    private ResidenzaPersistence residenzaPersistence;
+    private ContattoPersistence contattoPersistence;
 
 
     @Override
-    public ResidenzaDTO create(ResidenzaCreateDTO dto) {
+    public ContattoDTO create(ContattoCreateDTO dto) {
 
         System.out.println(dto);
 
-        ResidenzaDTO residenzaDTO = residenzaModelMapper.fromCreateDto(dto);
+        ContattoDTO contattoDTO = contattoModelMapper.fromCreateDto(dto);
 
        // this.checkValidate(residenzaDTO);
 
-        ResidenzaModel residenzaModel = residenzaModelMapper.toModel(residenzaDTO);
-        ResidenzaModel model = residenzaPersistence.save(residenzaModel);
+        ContattoModel contattoModel = contattoModelMapper.toModel(contattoDTO);
+        ContattoModel model = contattoPersistence.save(contattoModel);
 
-        return residenzaModelMapper.toDto(model);
+        return contattoModelMapper.toDto(model);
     }
 
     @Override
-    public List<ResidenzaDTO> findByIds(List<UUID> ids) {
-        List<ResidenzaModel> models = residenzaPersistence.findByIds(ids);
-        return residenzaModelMapper.toDto(models);
+    public List<ContattoDTO> findByIds(List<UUID> ids) {
+        List<ContattoModel> models = contattoPersistence.findByIds(ids);
+        return contattoModelMapper.toDto(models);
     }
 
     @Override
-    public Page<ResidenzaDTO> search(ResidenzaCriteria criteria, Pageable pageRequest) {
+    public Page<ContattoDTO> search(ContattoCriteria criteria, Pageable pageRequest) {
         //criteria.setElimina((short)1);
-        Page<ResidenzaModel> models = residenzaPersistence.search(criteria, pageRequest);
-        return models.map(model -> this.residenzaModelMapper.toDto(model));
+        Page<ContattoModel> models = contattoPersistence.search(criteria, pageRequest);
+        return models.map(model -> this.contattoModelMapper.toDto(model));
     }
 
 //	@Override
@@ -63,30 +64,30 @@ public class ResidenzaServiceImpl implements ResidenzaService {
 //	}
 
     @Override
-    public ResidenzaDTO update(ResidenzaUpdateDTO dto) {
-        ResidenzaDTO residenzaDTO = residenzaModelMapper.fromUpdateDto(dto);
+    public ContattoDTO update(ContattoUpdateDTO dto) {
+        ContattoDTO contattoDTO = contattoModelMapper.fromUpdateDto(dto);
 //		this.checkValidate(anagraficaDTO);
 //		this.checkDomandaExists(anagraficaDTO.getId());
-        ResidenzaModel residenzaModel = residenzaModelMapper.toModel(residenzaDTO);
-        residenzaPersistence.save(residenzaModel);
-        ResidenzaModel model = residenzaPersistence.findByIds(Collections.singletonList(residenzaDTO.getId()))
+        ContattoModel residenzaModel = contattoModelMapper.toModel(contattoDTO);
+        contattoPersistence.save(residenzaModel);
+        ContattoModel model = contattoPersistence.findByIds(Collections.singletonList(contattoDTO.getId()))
                 .stream()
                 .findAny()
                 .orElse(null);
-        return residenzaModelMapper.toDto(model);
+        return contattoModelMapper.toDto(model);
     }
 
     @Override
     public void delete(UUID id) {
 //		this.checkDomandaExists(id);
-        ResidenzaDTO anagraficaDTO = this.findByIds(Collections.singletonList(id))
+        ContattoDTO anagraficaDTO = this.findByIds(Collections.singletonList(id))
                 .stream()
                 .findAny()
                 .orElse(null);
         anagraficaDTO.setFlagElimina((short) 1);
 
-        ResidenzaModel residenzaModel = residenzaModelMapper.toModel(anagraficaDTO);
-        residenzaPersistence.save(residenzaModel);
+        ContattoModel contattoModel = contattoModelMapper.toModel(anagraficaDTO);
+        contattoPersistence.save(contattoModel);
     }
 //
 //	private void checkDomandaExists(UUID id) {

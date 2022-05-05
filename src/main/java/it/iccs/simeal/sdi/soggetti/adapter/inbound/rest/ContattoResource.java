@@ -5,9 +5,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.DomicilioService;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioCreateDTO;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioDTO;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ContattoService;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.DomandaService;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ContattoCreateDTO;
+import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ContattoDTO;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ResidenzaDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,19 @@ import org.zalando.problem.Problem;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/domicilio")
-public class DomicilioResource {
+@RequestMapping("/api/contatto" +
+        "")
+public class ContattoResource {
 
     @Autowired
-    private DomicilioService domicilioService;
+    private ContattoService contattoService;
 
-    @Operation(summary = "Crea una Domicilio", description = "La creazione non richiede campi obbligatori", tags = { "Domicilio Resource" } )
+    @Autowired
+    private DomandaService domandaService;
+
+    @Operation(summary = "Crea una Contatto", description = "La creazione non richiede campi obbligatori", tags = { "Contatto Resource" } )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Domicilio Soggetto creato", content = {
+            @ApiResponse(responseCode = "200", description = "Contatto Soggetto creato", content = {
                     @Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Input non valido", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
@@ -38,10 +43,25 @@ public class DomicilioResource {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
     })
     @PostMapping
-    public ResponseEntity<DomicilioDTO> createDomicilio(@Validated @RequestBody DomicilioCreateDTO dto) {
-        log.debug("REST request to create Domicilio: {}", dto);
-        return new ResponseEntity<>(domicilioService.create(dto), HttpStatus.OK);
+    public ResponseEntity<ContattoDTO> createContatto(@Validated @RequestBody ContattoCreateDTO dto) {
+        log.debug("REST request to create Contatto: {}", dto);
+        return new ResponseEntity<>(contattoService.create(dto), HttpStatus.OK);
     }
+
+//    @Operation(summary = "Crea una Residenza", description = "La creazione non richiede campi obbligatori", tags = { "Residenza Resource" } )
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Residenza Soggetto creata", content = {
+//                    @Content(mediaType = "application/json")}),
+//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+//    })
+//    @PostMapping
+//    public ResponseEntity<ResidenzaDTO> createResidenza(@Validated @RequestBody ResidenzaCreateDTO dto) {
+//        log.debug("REST request to create Residenza: {}", dto);
+//        return new ResponseEntity<>(residenzaService.create(dto), HttpStatus.OK);
+//    }
 
 //    @Operation(summary = "Recupera tutte le Anagrafiche che soddisfano gli id inseriti",
 //            description = "La ricerca richiede obbligatoriamente una lista di id", tags = { "Anagrafica Resource" } )

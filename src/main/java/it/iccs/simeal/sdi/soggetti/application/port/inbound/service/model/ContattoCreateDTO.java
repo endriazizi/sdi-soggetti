@@ -10,27 +10,22 @@ import java.util.UUID;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode
-public class ResidenzaDTO implements Serializable {
-	
+//@NoArgsConstructor
+//@AllArgsConstructor
+public class ContattoCreateDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	private UUID id;
 
-	private String indirizzo;
+	private String email;
 
-	private String civico;
+	private String pec;
 
-	private String cap;
+	private String telefono;
 
-	private Boolean aire;
-
-	private Boolean separaDomicilioResidenza;
+	private String cellulare;
 
 	private AnagraficaDTO anagrafica;
 
-	private NazioneDTO nazione;
-
-	private ComuneDTO comune;
-
-	private Short flagElimina;
 }

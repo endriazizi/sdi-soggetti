@@ -5,23 +5,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.AnagraficaService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.DomandaService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ResidenzaService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RestController
