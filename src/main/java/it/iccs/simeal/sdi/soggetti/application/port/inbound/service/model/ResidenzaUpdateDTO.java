@@ -20,22 +20,20 @@ public class ResidenzaUpdateDTO implements Serializable {
 
 	private UUID id;
 
-	private String denominazione;
+	private String indirizzo;
 
-	private String cognome;
+	private String civico;
 
-	private String nome;
+	private String cap;
 
-	private LocalDate dataNascita;
+	private Boolean aire;
 
-	private String localitaNascita;
+	private Boolean separaDomicilioResidenza;
 
-	private String provinciaNascita;
+	private AnagraficaDTO anagrafica;
 
-	private String codiceFiscale;
+	private NazioneDTO nazione;
 
-	private String sesso;
-
-	private String note;
+	private ComuneDTO comune;
 
 }

@@ -15,11 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
+
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -138,10 +137,10 @@ public class ContattoResource {
 //                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
 //    })
 //
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> deleteAnagrafica(@PathVariable("id") UUID id) {
-//        log.debug("REST request to delete Anagrafica: {}", id);
-//        anagraficaService.delete(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAnagrafica(@PathVariable("id") UUID id) {
+        log.debug("REST request to delete Anagrafica: {}", id);
+        contattoService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

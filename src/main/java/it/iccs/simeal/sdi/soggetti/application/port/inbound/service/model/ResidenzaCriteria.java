@@ -15,7 +15,7 @@ import java.util.UUID;
 public class ResidenzaCriteria {
 	
 	List<UUID> id = new ArrayList<>();
-//	List<StringFilter> cognome = new ArrayList<>();
+	List<StringFilter> indirizzo = new ArrayList<>();
 	List<UUID> anagrafica = new ArrayList<>();
 
 	// Short flagElimina;

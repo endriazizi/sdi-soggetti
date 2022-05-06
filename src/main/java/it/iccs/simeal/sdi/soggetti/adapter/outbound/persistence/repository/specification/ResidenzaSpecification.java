@@ -15,7 +15,7 @@ public class ResidenzaSpecification extends AbstractSpecification<ResidenzaEntit
 		Short flagValue = 0;
 
 		Specification<ResidenzaEntity> specification =
-			super.flagSpecification(flagName, flagValue);
+			super.flagSpecification(flagName, flagValue)
 //				.and(super.applyInUUIDFilter(criteria.getId(), "id"))
 //				.and(super.applyIntegerFilter(criteria.getAnno(), "anno"))
 //				.and(super.applyInUUIDFilter(criteria.getIdRichiedente1(), "id_richiedente1"))
@@ -25,7 +25,7 @@ public class ResidenzaSpecification extends AbstractSpecification<ResidenzaEntit
 //		     	.and(super.applyInUUIDFilter(criteria.getIdClasse(), "id_classe"))
 //				.and(super.applyInUUIDFilter(criteria.getIdSezione(), "id_sezione"));
 
-//				.and(super.applySearchFilter(criteria.getCognome(), "cognome"));
+				.and(super.applySearchFilter(criteria.getIndirizzo(), "cognome"));
 
 				//.and(super.flagSpecification("flagElimina", criteria.getFlagElimina()));
 		return specification;

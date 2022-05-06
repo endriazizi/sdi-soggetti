@@ -10,11 +10,17 @@ import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ResidenzaSer
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -42,85 +48,71 @@ public class ResidenzaResource {
         return new ResponseEntity<>(residenzaService.create(dto), HttpStatus.OK);
     }
 
-//    @Operation(summary = "Crea una Residenza", description = "La creazione non richiede campi obbligatori", tags = { "Residenza Resource" } )
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Residenza Soggetto creata", content = {
-//                    @Content(mediaType = "application/json")}),
-//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
-//    })
-//    @PostMapping
-//    public ResponseEntity<ResidenzaDTO> createResidenza(@Validated @RequestBody ResidenzaCreateDTO dto) {
-//        log.debug("REST request to create Residenza: {}", dto);
-//        return new ResponseEntity<>(residenzaService.create(dto), HttpStatus.OK);
-//    }
 
-//    @Operation(summary = "Recupera tutte le Anagrafiche che soddisfano gli id inseriti",
-//            description = "La ricerca richiede obbligatoriamente una lista di id", tags = { "Anagrafica Resource" } )
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Anagrafica trovata", content = {
-//                    @Content(mediaType = "application/json")}),
-//            @ApiResponse(responseCode = "204", description = "Nessuna Anagrafica trovata", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema())}),
-//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
-//    })
-//
-//    @GetMapping(params = {"ids"})
-//    public ResponseEntity<List<AnagraficaDTO>> findAnagraficaByIds(@NotNull @RequestParam(value = "ids") List<UUID> ids) {
-//        log.debug("REST request to find any Anagrafica {}", ids);
-//        List<AnagraficaDTO> dtos = anagraficaService.findByIds(ids);
-//        if (dtos.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(dtos, HttpStatus.OK);
-//        }
-//    }
-//
-//    @Operation(summary = "Recupera tutti le Anagrafiche che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Anagrafica Resource" } )
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Anagrafica trovata"),
-//            @ApiResponse(responseCode = "204", description = "Nessuna Anagrafica trovata", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema())}),
-//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
-//    })
-//    @GetMapping("/ricerca")
-//    public ResponseEntity<Page<AnagraficaDTO>> searchAnagrafica(AnagraficaCriteria criteria, Pageable pageRequest) {
-//        log.debug("REST request to search Anagrafica: {} {}", criteria, pageRequest);
-//        Page<AnagraficaDTO> results = anagraficaService.search(criteria, pageRequest);
-//        if (results.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(results, HttpStatus.OK);
-//        }
-//    }
-//
-//    @Operation(summary = "Aggiorna una Anagrafica", description = "L'aggiornamento richiede obbligatoriamente l'id della Anagrafica da aggiornare", tags = { "Anagrafica Resource" } )
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Anagrafica aggiornata", content = {
-//                    @Content(mediaType = "application/json")}),
-//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "404", description = "Anagrafica non esiste", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
-//    })
-//    @PutMapping()
-//    public ResponseEntity<AnagraficaDTO> updateDomanda(@Validated @RequestBody AnagraficaUpdateDTO dto) {
-//        log.debug("REST request to update Domanda: {}", dto);
-//        return new ResponseEntity<>(anagraficaService.update(dto), HttpStatus.OK);
-//    }
-//
-//
-//    @Operation(summary = "Elimina una Anagrafica", description = "L'eliminazione richiede obbligatioramente l'id", tags = { "Anagrafica Resource" } )
+    @Operation(summary = "Recupera tutte le Residenze che soddisfano gli id inseriti",
+            description = "La ricerca richiede obbligatoriamente una lista di id", tags = { "Residenza Resource" } )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Residenza trovata", content = {
+                    @Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "204", description = "Nessuna Residenza trovata", content = {
+                    @Content(mediaType = "application/json", schema = @Schema())}),
+            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+    })
+
+    @GetMapping(params = {"ids"})
+    public ResponseEntity<List<ResidenzaDTO>> findAnagraficaByIds(@NotNull @RequestParam(value = "ids") List<UUID> ids) {
+        log.debug("REST request to find any Residenza {}", ids);
+        List<ResidenzaDTO> dtos = residenzaService.findByIds(ids);
+        if (dtos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
+        }
+    }
+
+    @Operation(summary = "Recupera tutti le Residenze che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Residenza Resource" } )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Anagrafica trovata"),
+            @ApiResponse(responseCode = "204", description = "Nessuna Anagrafica trovata", content = {
+                    @Content(mediaType = "application/json", schema = @Schema())}),
+            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+    })
+    @GetMapping("/ricerca")
+    public ResponseEntity<Page<ResidenzaDTO>> searchAnagrafica(ResidenzaCriteria criteria, Pageable pageRequest) {
+        log.debug("REST request to search Anagrafica: {} {}", criteria, pageRequest);
+        Page<ResidenzaDTO> results = residenzaService.search(criteria, pageRequest);
+        if (results.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(results, HttpStatus.OK);
+        }
+    }
+
+    @Operation(summary = "Aggiorna una Residenza", description = "L'aggiornamento richiede obbligatoriamente l'id della Residenza da aggiornare", tags = { "Residenza Resource" } )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "residenza aggiornata", content = {
+                    @Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "404", description = "Anagrafica non esiste", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+    })
+    @PutMapping()
+    public ResponseEntity<ResidenzaDTO> updateResidenza(@Validated @RequestBody ResidenzaUpdateDTO dto) {
+        log.debug("REST request to update Residenza: {}", dto);
+        return new ResponseEntity<>(residenzaService.update(dto), HttpStatus.OK);
+    }
+
+
+//    @Operation(summary = "Elimina una Anagrafica", description = "L'eliminazione richiede obbligatioramente l'id", tags = { "Residenza Resource" } )
 //    @ApiResponses(value = {
 //            @ApiResponse(responseCode = "200", description = "Anagrafica eliminata", content = {
 //                    @Content(mediaType = "application/json")}),
