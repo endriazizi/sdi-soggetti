@@ -1,20 +1,13 @@
 package it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence;
 
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.mapper.DomicilioEntityMapper;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.mapper.DomicilioStoricoEntityMapper;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.AnagraficaRepository;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.DomicilioRepository;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.DomicilioStoricoRepository;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.AnagraficaEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DomicilioEntity;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DomicilioStoricoEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification.DomcicilioSpecification;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification.DomcicilioStoricoSpecification;
-import it.iccs.simeal.sdi.soggetti.application.model.DomicilioModel;
 import it.iccs.simeal.sdi.soggetti.application.model.DomicilioStoricoModel;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioCriteria;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioStoricoCriteria;
-import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.DomicilioPersistence;
 import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.DomicilioStoricoPersistence;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

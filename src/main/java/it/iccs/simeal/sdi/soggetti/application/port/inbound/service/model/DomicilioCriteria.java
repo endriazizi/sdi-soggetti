@@ -1,5 +1,6 @@
 package it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model;
 
+import io.github.jhipster.service.filter.StringFilter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,6 +17,7 @@ public class DomicilioCriteria {
 	List<UUID> id = new ArrayList<>();
 //	List<StringFilter> cognome = new ArrayList<>();
 	List<UUID> anagrafica = new ArrayList<>();
+	List<StringFilter> indirizzo = new ArrayList<>();
 
 	// Short flagElimina;
 //	List<IntegerFilter> anno = new ArrayList<>();

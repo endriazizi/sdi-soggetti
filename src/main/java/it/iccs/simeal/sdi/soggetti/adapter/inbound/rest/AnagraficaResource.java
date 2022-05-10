@@ -44,11 +44,11 @@ public class AnagraficaResource {
     })
     @PostMapping
     public ResponseEntity<AnagraficaDTO> createAnagrafica(@Validated @RequestBody AnagraficaCreateDTO dto) {
-        log.debug("REST request to create Anno: {}", dto);
+        log.debug("REST request to create Anagrafica: {}", dto);
         return new ResponseEntity<>(anagraficaService.create(dto), HttpStatus.OK);
     }
 
-    @Operation(summary = "Recupera tutte le Anagrafiche che soddisfano gli id inseriti",
+    @Operation(summary = "Recupera tutte le Anagrafica che soddisfano gli id inseriti",
             description = "La ricerca richiede obbligatoriamente una lista di id", tags = { "Anagrafica Resource" } )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Anagrafica trovata", content = {
@@ -72,7 +72,7 @@ public class AnagraficaResource {
         }
     }
 
-    @Operation(summary = "Recupera tutti le Anagrafiche che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Anagrafica Resource" } )
+    @Operation(summary = "Recupera tutti le Anagrafica che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Anagrafica Resource" } )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Anagrafica trovata"),
             @ApiResponse(responseCode = "204", description = "Nessuna Anagrafica trovata", content = {

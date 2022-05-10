@@ -25,7 +25,7 @@ public class ResidenzaSpecification extends AbstractSpecification<ResidenzaEntit
 //		     	.and(super.applyInUUIDFilter(criteria.getIdClasse(), "id_classe"))
 //				.and(super.applyInUUIDFilter(criteria.getIdSezione(), "id_sezione"));
 
-				.and(super.applySearchFilter(criteria.getIndirizzo(), "cognome"));
+				.and(super.applySearchFilter(criteria.getIndirizzo(), "indirizzo"));
 
 				//.and(super.flagSpecification("flagElimina", criteria.getFlagElimina()));
 		return specification;

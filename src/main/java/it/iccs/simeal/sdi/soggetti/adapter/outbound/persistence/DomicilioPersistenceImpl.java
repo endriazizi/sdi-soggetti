@@ -1,21 +1,14 @@
 package it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence;
 
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.mapper.DomicilioEntityMapper;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.mapper.ResidenzaEntityMapper;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.AnagraficaRepository;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.DomicilioRepository;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.ResidenzaRepository;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.AnagraficaEntity;
 import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.DomicilioEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.entity.ResidenzaEntity;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification.DomcicilioSpecification;
-import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification.ResidenzaSpecification;
+import it.iccs.simeal.sdi.soggetti.adapter.outbound.persistence.repository.specification.DomcilioSpecification;
 import it.iccs.simeal.sdi.soggetti.application.model.DomicilioModel;
-import it.iccs.simeal.sdi.soggetti.application.model.ResidenzaModel;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.DomicilioCriteria;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.ResidenzaCriteria;
 import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.DomicilioPersistence;
-import it.iccs.simeal.sdi.soggetti.application.port.outbound.persistence.ResidenzaPersistence;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +24,7 @@ import java.util.UUID;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class DomicilioPersistenceImpl extends DomcicilioSpecification implements DomicilioPersistence {
+public class DomicilioPersistenceImpl extends DomcilioSpecification implements DomicilioPersistence {
 	
 	private final Logger log = LoggerFactory.getLogger(DomicilioPersistenceImpl.class);
 	

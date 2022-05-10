@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.DomandaService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.ResidenzaService;
 import it.iccs.simeal.sdi.soggetti.application.port.inbound.service.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +28,6 @@ public class ResidenzaResource {
 
     @Autowired
     private ResidenzaService residenzaService;
-
-    @Autowired
-    private DomandaService domandaService;
 
     @Operation(summary = "Crea una Residenza", description = "La creazione non richiede campi obbligatori", tags = { "Residenza Resource" } )
     @ApiResponses(value = {
@@ -63,7 +59,7 @@ public class ResidenzaResource {
     })
 
     @GetMapping(params = {"ids"})
-    public ResponseEntity<List<ResidenzaDTO>> findAnagraficaByIds(@NotNull @RequestParam(value = "ids") List<UUID> ids) {
+    public ResponseEntity<List<ResidenzaDTO>> findResidenzaByIds(@NotNull @RequestParam(value = "ids") List<UUID> ids) {
         log.debug("REST request to find any Residenza {}", ids);
         List<ResidenzaDTO> dtos = residenzaService.findByIds(ids);
         if (dtos.isEmpty()) {
@@ -75,8 +71,8 @@ public class ResidenzaResource {
 
     @Operation(summary = "Recupera tutti le Residenze che soddisfano i criteri di ricerca", description = "La ricerca richiede dei criteri validi", tags = { "Residenza Resource" } )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Anagrafica trovata"),
-            @ApiResponse(responseCode = "204", description = "Nessuna Anagrafica trovata", content = {
+            @ApiResponse(responseCode = "200", description = "Residenza trovata"),
+            @ApiResponse(responseCode = "204", description = "Nessuna Residenza trovata", content = {
                     @Content(mediaType = "application/json", schema = @Schema())}),
             @ApiResponse(responseCode = "400", description = "Input non valido", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
@@ -84,8 +80,8 @@ public class ResidenzaResource {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
     })
     @GetMapping("/ricerca")
-    public ResponseEntity<Page<ResidenzaDTO>> searchAnagrafica(ResidenzaCriteria criteria, Pageable pageRequest) {
-        log.debug("REST request to search Anagrafica: {} {}", criteria, pageRequest);
+    public ResponseEntity<Page<ResidenzaDTO>> searchResidenza(ResidenzaCriteria criteria, Pageable pageRequest) {
+        log.debug("REST request to search Residenza: {} {}", criteria, pageRequest);
         Page<ResidenzaDTO> results = residenzaService.search(criteria, pageRequest);
         if (results.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -102,7 +98,7 @@ public class ResidenzaResource {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
             @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-            @ApiResponse(responseCode = "404", description = "Anagrafica non esiste", content = {
+            @ApiResponse(responseCode = "404", description = "Residenza non esiste", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
     })
     @PutMapping()
@@ -112,22 +108,22 @@ public class ResidenzaResource {
     }
 
 
-//    @Operation(summary = "Elimina una Anagrafica", description = "L'eliminazione richiede obbligatioramente l'id", tags = { "Residenza Resource" } )
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Anagrafica eliminata", content = {
-//                    @Content(mediaType = "application/json")}),
-//            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
-//            @ApiResponse(responseCode = "404", description = "Anagrafica non esiste", content = {
-//                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
-//    })
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> deleteAnagrafica(@PathVariable("id") UUID id) {
-//        log.debug("REST request to delete Anagrafica: {}", id);
-//        anagraficaService.delete(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @Operation(summary = "Elimina una Residenza", description = "L'eliminazione richiede obbligatioramente l'id", tags = { "Residenza Resource" } )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Residenza eliminata", content = {
+                    @Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Input non valido", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "401", description = "Azione non consentita", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))}),
+            @ApiResponse(responseCode = "404", description = "Residenza non esiste", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Problem.class))})
+    })
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteResidenza(@PathVariable("id") UUID id) {
+        log.debug("REST request to delete Residenza: {}", id);
+        residenzaService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -23,21 +23,24 @@ public class AnagraficaCreateDTO implements Serializable {
 
 	private UUID id;
 
-	private String indirizzo;
+	private TipologiaSoggetto tipologiaSoggetto;
 
-	private String civico;
+	private String denominazione;
 
-	private String cap;
+	private String cognome;
 
-	private String aire;
+	private String nome;
 
-	private Boolean separaDomicilioResidenza;
+	private LocalDate dataNascita;
 
-	private AnagraficaDTO anagrafica;
+	private String localitaNascita;
 
-	private NazioneDTO nazione;
+	private String provinciaNascita;
 
-	private ComuneDTO comune;
+	private String codiceFiscale;
 
+	private String sesso;
+
+	private String note;
 
 }
